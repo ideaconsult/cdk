@@ -1788,8 +1788,15 @@ public class StructureDiagramGenerator {
                 shared.addAtom(atom);
             Point2d center = GeometryUtil.get2DCenter(shared);
 
+            // first priority bonds between selected atoms
             for (IBond bond : mol.bonds()) {
                 if (e.getKey().contains(bond.getAtom(0)) && e.getKey().contains(bond.getAtom(1))) {
+                    bonds.add(bond);
+                }
+            }
+            // second priority bonds adjacent to one of the atoms
+            for (IBond bond : mol.bonds()) {
+                if (e.getKey().contains(bond.getAtom(0)) || e.getKey().contains(bond.getAtom(1))) {
                     bonds.add(bond);
                 }
             }
@@ -1802,10 +1809,11 @@ public class StructureDiagramGenerator {
                 while (begIter.hasNext() && bndIter.hasNext()) {
 
                     final IBond bond = bndIter.next();
-                    final IAtom atom = begIter.next();
 
                     if (numRingBonds(mol, bond.getAtom(0)) > 2 && numRingBonds(mol, bond.getAtom(1)) > 2)
                         continue;
+
+                    final IAtom atom = begIter.next();
 
                     final Point2d newBegP = new Point2d(bond.getAtom(0).getPoint2d());
                     final Point2d newEndP = new Point2d(bond.getAtom(1).getPoint2d());
