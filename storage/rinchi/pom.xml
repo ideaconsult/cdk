@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.dan2097</groupId>
-            <artifactId>jna-rinchi-api</artifactId>
+            <artifactId>jna-rinchi-core</artifactId>
             <version>${jna-inchi.version}</version>
         </dependency>        
         <dependency>
